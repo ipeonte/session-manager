@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="session-manager">
+  <head>
+    <meta charset="utf-8" />
+    <title>Session Manager</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css" />
+
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-cookies.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/app/controllers.js"></script>
+    <script type="text/javascript" src="js/app/services.js"></script>
+
+  </head>
+  <body ng-controller="session-manager-controller">
+
+    <div class="row" style="padding-bottom: 10px">
+      <div class="col-sm-4 col-sm-offset-2">
+        <label>Environment</label>
+        <select class="form-control input-sm"
+        ng-model="url" ng-options="url for url in urls" ng-init="url=urls[0]"></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-2 col-sm-offset-2">
+        <label>Path</label>
+        <input ng-model="session_path" id="session_path" />
+      </div>
+      
+      <div class="col-sm-4">
+        <label>Session Cookie</label>
+        <input ng-model="session_cookie_name" id="session_cookie_name" />
+        <span ng-if="session_id" class="animate-if">
+              = {{session_id}}
+          </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-2">
+        <h3>Session Parameters</h3>
+
+        <form>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Defalut Value</th>
+              <th>Actual Value</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(key, value) in attributes">
+              <td>{{key}}</td>
+              <td>{{value}}</td>
+              <td><b>{{params[key]}}</b></td>
+              <td><button type="submit" class="btn btn-primary btn-sm" 
+                                  ng-click="get(key)">Get</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+          <button style="float:left" type="submit"
+              ng-class="{'btn-primary': !data_set, 'btn-success': data_set}"
+                  class="btn btn-sm" ng-click="set()">
+            Set
+          </button>
+          
+        </form>
+
+  </body>
+</html>
